@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 #
 # Sets up a new TLS client certificate, signed by the TLS
 # certificate authority.
@@ -15,13 +17,13 @@ basepath="$rootpath/.."
 . $basepath/etc/bash/colors
 
 ## Export the ENV variables
-export BASEPATH=$basepath
 export TLSCANAME=$tlsCA
+export BASEPATH=$basepath
 export CABASEURL=$caBaseURL
 export COUNTRYNAME=$countryName
 export ORGNAME=$organizationName
-export ORGUNITNAME=$organizationalUnitName
 export TLSCOMMONNAME=$tlsCommonName
+export ORGUNITNAME=$organizationalUnitName
 
 ## Help message
 function showHelp {

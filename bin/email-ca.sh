@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 #
 # Sets up the Email CA
 ##
@@ -15,12 +17,14 @@ basepath="$rootpath/.."
 
 ## Export the ENV variables
 export BASEPATH=$basepath
-export EMAILCANAME=$emailCA
+export ROOTCANAME=$rootCA
 export CABASEURL=$caBaseURL
+export EMAILCANAME=$emailCA
 export COUNTRYNAME=$countryName
 export ORGNAME=$organizationName
-export ORGUNITNAME=$organizationalUnitName
+export ROOTCOMMONNAME=$rootCommonName
 export EMAILCOMMONNAME=$emailCommonName
+export ORGUNITNAME=$organizationalUnitName
 
 ## Create directories
 mkdir -p $basepath/ca/email-ca/private $basepath/ca/email-ca/db

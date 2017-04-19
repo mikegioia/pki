@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 #
 # Sets up the TLS CA
 ##
@@ -14,13 +16,15 @@ basepath="$rootpath/.."
 . $basepath/etc/bash/colors
 
 ## Export the ENV variables
-export BASEPATH=$basepath
 export TLSCANAME=$tlsCA
+export BASEPATH=$basepath
+export ROOTCANAME=$rootCA
 export CABASEURL=$caBaseURL
 export COUNTRYNAME=$countryName
 export ORGNAME=$organizationName
-export ORGUNITNAME=$organizationalUnitName
 export TLSCOMMONNAME=$tlsCommonName
+export ROOTCOMMONNAME=$rootCommonName
+export ORGUNITNAME=$organizationalUnitName
 
 ## Create directories
 mkdir -p $basepath/ca/tls-ca/private $basepath/ca/tls-ca/db
@@ -63,7 +67,7 @@ function genCsr {
 ## Check if the CSR exists. If so, ask the user if they
 ## want to replace it. Otherwise, just create the CSR.
 if [[ -f "$basepath/ca/$tlsCA.csr" ]] ; then
-    echo -e "${red}TLS CA CSR exists!{$NC}"
+    echo -e "${red}TLS CA CSR exists!${NC}"
     echo -n "Do you want to create a new one? (y/N): "
     read answer
     echo ""
@@ -84,7 +88,7 @@ function genCrt {
 }
 
 if [[ -f "$basepath/ca/$tlsCA.crt" ]] ; then
-    echo -e "${red}TLS CA certificate exists!{$NC}"
+    echo -e "${red}TLS CA certificate exists!${NC}"
     echo -n "Do you want to create a new one? (y/N): "
     read answer
     echo ""

@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 #
 # Sets up the Software CA
 ##
@@ -15,10 +17,12 @@ basepath="$rootpath/.."
 
 ## Export the ENV variables
 export BASEPATH=$basepath
-export SOFTWARECANAME=$softwareCA
+export ROOTCANAME=$rootCA
 export CABASEURL=$caBaseURL
 export COUNTRYNAME=$countryName
 export ORGNAME=$organizationName
+export SOFTWARECANAME=$softwareCA
+export ROOTCOMMONNAME=$rootCommonName
 export ORGUNITNAME=$organizationalUnitName
 export SOFTWARECOMMONNAME=$softwareCommonName
 
