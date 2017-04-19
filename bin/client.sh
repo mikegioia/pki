@@ -71,7 +71,9 @@ function createCertDirs {
 
 ## Generate the CSR
 function genCsr {
-    if ! [[ -f "$basepath/certs/tls-ca/private/$certName.key" ]] ; then
+    keyPath="$basepath/certs/tls-ca/private/$certName.key"
+
+    if ! [[ -f $keyPath && -s $keyPath ]] ; then
         openssl req -new \
             -sha256 \
             -config $basepath/etc/client.conf \

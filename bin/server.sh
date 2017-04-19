@@ -26,7 +26,7 @@ export TLSCOMMONNAME=$tlsCommonName
 export ORGUNITNAME=$organizationalUnitName
 
 ## Script vars
-fqdns=()
+fqdns=("")
 
 ## Help message
 function showHelp {
@@ -54,6 +54,13 @@ function showCreateMessage {
     echo "";
 }
 
+## Do all of the FQDN polling
+function getFqdns {
+    getFqdn
+    checkFqdns
+    confirmFqdns
+}
+
 ## Begin prompting the user for domains to add to the
 ## server alternate name (SAN).
 function getFqdn {
@@ -79,6 +86,11 @@ function checkFqdns {
         echo -e "${redBold}You didn't enter any domains!${NC}"
         exit 1
     fi
+
+    ## Trim the array
+    for i in "${!fqdns[@]}"; do
+        [ -n "${fqdns[$i]}" ] || unset "fqdns[$i]"
+    done
 }
 
 ## Confirm the list of domains
@@ -98,8 +110,9 @@ function confirmFqdns {
     echo ""
 
     if ! [[ "$answer" == "y" || "$answer" == "Y" ]] ; then
-        echo -e "${redBold}Aborted!${NC}"
-        exit 0
+        showCreateMessage
+        fqdns=("")
+        getFqdns
     fi
 }
 
@@ -229,9 +242,7 @@ case $i in
     create )
         ## Create a new certificate
         showCreateMessage
-        getFqdn
-        checkFqdns
-        confirmFqdns
+        getFqdns
         getCertName
         exportSan
         createCertDirs
@@ -249,7 +260,7 @@ case $i in
         finish
         exit 0
         ;;
-    revoke ) 
+    revoke )
         ## Revoke a certificate
         # @TODO
         # Get serial
