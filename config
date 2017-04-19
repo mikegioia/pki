@@ -1,0 +1,23 @@
+## Certifical Authority
+
+caBaseURL=https://pki.example.org/ca
+rootCA=ExampleRootCA
+emailCA=ExampleEmailCA
+emailChainCA=ExampleEmailCAChain
+tlsCA=ExampleLSCA
+tlsChainCA=ExampleTLSCAChain
+softwareCA=ExampleSoftwareCA
+softwareChainCA=ExampleSoftwareCAChain
+
+## Organization
+
+countryName="US"
+organizationName="Example Company"
+organizationalUnitName="Security Division"
+
+## CA Common Names
+
+rootCommonName="Example Primary Root CA"
+tlsCommonName="Example TLS CA"
+emailCommonName="Example Email CA"
+softwareCommonName="Example Software CA"
