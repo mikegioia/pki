@@ -1,11 +1,14 @@
 # Certificate Authority Management Utilities
 
 This repo contains helpful and easy to use utilities for managing the public key
-infrastructure at your organization, or for yourself. You can generate a Root
-Certificate Authority, intermediate CAs like a Software Signing or Email CA,
-individual web server certificates for your domains to use both locally and on
-the Internet, and personal email and browser PKCS-12 certificates for email and
-web-based authentication.
+infrastructure (PKI) at your organization, or for yourself. You can do a lot
+here:
+
+* Generate a Root Certificate Authority
+* Create Intermediate CAs, like a TLS, Code-signing, or Email CA
+* Sign and issue web server certificates for your domains
+* Create personal email and browser PKCS-12 certificates for email and
+web-based authentication
 
 This project heavily utilizes OpenSSL and requires Bash.
 
@@ -28,6 +31,7 @@ This project heavily utilizes OpenSSL and requires Bash.
     1. [Security](#61-security)
     2. [Web Server Install](#62-web-server-install)
     3. [Browser Install](#63-browser-install)
+    4. [Known Issues](#64-known-issues)
 
 ---
 
@@ -256,3 +260,17 @@ Root CA certificate file. Make sure you trust this authority.
 
 You may need to restart your browser for this to take effect, since SSL is often
 cached.
+
+### 6.4 Known Issues
+
+Here is a list of the current limitations and planned updates:
+
+1. There's no way to revoke certificates really. This is needed to be added as
+   as a command in some of the scripts.
+2. CRLs would then need to be inspected to see if they're working with the
+   revokations. CRLs are also difficult to get onto a public web server. This
+   problem, if solved, should be documented here.
+
+At this point, it's still somewhat unclear to me what the databases and serial
+files are that get generated. I think I need to spend more time with revokations
+to understand that.
