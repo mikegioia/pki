@@ -122,7 +122,7 @@ function genCrt {
         -in $basepath/ca/$rootCA.csr \
         -out $basepath/ca/$rootCA.crt \
         -extensions root_ca_ext \
-        -enddate 20501231235959Z
+        -enddate 501231235959Z
 }
 
 ## Check if certificate exists and prompt to overwrite
