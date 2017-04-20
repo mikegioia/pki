@@ -11,7 +11,7 @@ This project heavily utilizes OpenSSL and requires Bash.
 
 ---
 
-## 0. Contents
+## Table of Contents
 
 1. [Introduction](#1-introduction)
 2. [Creating a Root Certificate Authority](#2-creating-a-root-certificate-authority)
