@@ -136,16 +136,16 @@ application and use-case for PKI and probably why you're here :P
 
 Creating a new server certificate is simple, and you can just follow the
 on-screen instructions. Just make sure to read the few instructions included.
-Just remember two things:
+**Please remember these three things**:
 
 1. The fully qualified domain name (FQDN) is usually of the form www.domain.com.
 2. When adding FQDNs at the beginning, add both the www and non-www domains. For
    example, both www.example.org and example.org. The script will prompt you to
    add as many as you'd like. You can probably even do a wildcard but I haven't
    tested that yet.
-3. When adding the `Organiztion Name` during the CSR questions, make sure it's
-   the same company name you have in your `config` file. Otherwise, the process
-   will halt and you will have to start over.
+3. When adding the `Organization Name` during the CSR questions, make sure it's
+   the same "Company Name" you have in your `config` file. Otherwise, the
+   process will halt and you will have to start over! This is an OpenSSL quirk.
 
 ### 4.1 Run Utility
 
@@ -171,15 +171,16 @@ This will create the following files and folders:
 ## 5. Creating a Client SSL Certificate
 
 An often unused, but very powerful security mechanism is PKCS-12 client
-certificates. These are certificates issued to people or devices that are
-signed by the Intermediate CA and grant that person or device access to the
-web server. In nginx, this is done through the use of `ssl_client_certificate`
-and pointing it to the `TLSCAChain.pem` file copied to your web server.
+certificate authentication. These are certificates issued to people or devices
+that are signed by the Intermediate CA and grant that person or device access to
+the web server. In nginx, this is done by using `ssl_client_certificate` and
+pointing that config optionto the `TLSCAChain.pem` file copied to your web
+server.
 
 This utility will generate a password protected `.p12` file that the user can
-import into their web browser. You can then set up your webserver to optionally
-require a client certificate to gain access. This client certificate replaces
-the need for the user to keep a password and provides greater security to an
+import into their web browser. You can then set up your web server to optionally
+require a client certificate for access. This client certificate replaces the
+need for the user to keep a password and provides greater security to any
 application.
 
 ### 5.1 Run Utility
@@ -197,7 +198,7 @@ Here are some helpful notes:
 2. During the CSR process, it will ask your for the "Organization Name". Make
    sure this is the same as the "Company Name" in the `config` file.
 3. During the CSR process, enter the user's name into the "Common Name" field,
-   and enter their email address into the "Email Address".
+   and enter their email address into the "Email Address" field.
 4. You will need the TLS CA private key password to sign this client
    certificate.
 
@@ -215,14 +216,14 @@ The following files are generated:
 
 ### 5.2 Browser Bundle
 
-At the end of the script, you are asked if you want to generate "client
+At the end of the script, you are asked if you want to generate a "client
 certificate bundle". This is the `.p12` file from earlier. If you do this, you
 will be prompted for a name to embed into the file. This name will display to
 the user when they are asked by their browser to select a certificate.
 
 You do not need to enter an export password but it is strongly recommended that
 you do. The `.p12` files should be treated like private keys since they contain
-both the public and private parts.
+both the public and private key parts.
 
 ## 6. Final Notes
 
@@ -230,7 +231,7 @@ both the public and private parts.
 
 Always make sure `.key` and `.p12` files remain untracked. This is automatically
 done for you through `.gitignore` files but it's important that you know this.
-These files should also be `chmod 400` to protect them on the web servers.
+These files should also be `chmod 400` to protect them on the web server.
 
 ### 6.2 Web Server Install
 
@@ -240,13 +241,13 @@ also copy over the `TLSCAChain.pem` file.
 
 ### 6.3 Browser Install
 
-Once you create a server certificate, your browser will not immediate trust it.
-To do this automatically for all server certificates that you create, add your
-Root CA certificate file to your browsers list of trusted authorities. This is
-the file `RootCA.crt` (or similarly named) in the `ca` folder.
+Once you create a server certificate, your browser will not immediately trust
+it. To do this automatically for all server certificates that you create, add
+your Root CA certificate file to your browser's list of trusted authorities.
+This is the file `RootCA.crt` (or similarly named) in the `ca` folder.
 
 If you're on MacOS, double click this file and make sure you open it again in
-KeyChain, expand the Trust tab, and make sure everything is always trusted.
+KeyChain, expand the Trust tab, and ensure that everything is always trusted.
 
 For Chrome, go to Settings -> Show Advanced Settings -> Manage Certificates.
 This will prompt KeyChain in MacOS or show you a window with an Authorites tab.
