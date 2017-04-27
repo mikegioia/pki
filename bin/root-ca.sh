@@ -121,8 +121,7 @@ function genCrt {
         -config $basepath/etc/root-ca.conf \
         -in $basepath/ca/$rootCA.csr \
         -out $basepath/ca/$rootCA.crt \
-        -extensions root_ca_ext \
-        -enddate 501231235959Z
+        -extensions root_ca_ext
 }
 
 ## Check if certificate exists and prompt to overwrite
